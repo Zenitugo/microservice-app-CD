@@ -17,5 +17,5 @@ terraform {
 provider "aws" {
   # Configuration options
   region             = var.region
-  profile            = "default"
+  profile            = "deb"
 }
