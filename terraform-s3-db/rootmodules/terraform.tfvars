@@ -1,0 +1,6 @@
+db-name                     = "ugdatabase"
+type                        = "S"
+hash_key                    = "LockID"   
+billing_mode                = "PAY_PER_REQUEST"
+bucket                      = "zenitugo21" 
+region                      = "eu-west-1"
