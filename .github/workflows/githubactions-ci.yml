@@ -1,0 +1,58 @@
+on:
+    push:
+        branches: [ "master" ]
+    pull_request:
+        branches: [ "master" ] 
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v4
+            
+            - name: Install kubectl
+              uses: azure/setup-kubectl@v3
+              with:
+                version: 'default'
+              id: Install
+
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                aws-region: eu-west-1
+                aws-access-key-id: ${{ secrets.aws-access-key-id }}
+                aws-secret-access-key: ${{ secrets.aws-secret-access-key }}
+
+            - name: Create S3 buckets and dynamodb table
+              run: |
+                echo "Creating s3 bucket and dynamodb table
+                cd terraform-s3-db
+                cd rootmodules
+                terraform init
+                terraform plan -var-file="terraform.tfvars"
+                terraform apply -auto-approve
+
+            - name: Create an EKS cluster
+              run: |
+                echo "Creating an eks cluster"
+                cd terraform-eks
+                cd devEnvironment
+                terraform init
+                terraform plan -var-file="terraform.tfvars"
+                terraform apply -auto-approve
+
+            - name: Update kube config
+              run: aws eks update-kubeconfig --name mycluster
+
+            - name: Deploy to EKS
+              run: |
+                cd manifest
+                echo "Creating namespace"
+                kubectl apply -f namespace.yml
+
+            - name: Installing ArgoCD in EKS Cluster
+              run: kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.10.2/manifests/install.yaml
+                
+                
+
