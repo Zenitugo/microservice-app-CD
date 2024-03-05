@@ -28,7 +28,7 @@ jobs:
 
             - name: Create S3 buckets and dynamodb table
               run: |
-                echo "Creating s3 bucket and dynamodb table
+                echo "Creating s3 bucket and dynamodb table"
                 cd terraform-s3-db
                 cd rootmodules
                 terraform init
