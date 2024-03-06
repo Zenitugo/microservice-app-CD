@@ -31,3 +31,5 @@ For this project, I clicked on (https://github.com/argoproj/argo-cd/releases/lat
 
 
 To edit argocd server run: `kubectl get svc -n argocd
+
+# ARGOCD DEPLOYMENT OF SOCKS SHOP APPLICATION
