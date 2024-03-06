@@ -10,7 +10,7 @@ terraform {
     bucket           = "zenitugo21"
     key              = "eks-key"
     region           = "eu-west-1"
-    dynamodb_table   = "ugodatabase"
+    dynamodb_table   = "ugdatabase"
   }
 }
 
