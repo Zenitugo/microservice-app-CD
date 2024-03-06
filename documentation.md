@@ -25,8 +25,9 @@ To install ArgoCD on your Kubernetes you can go through this [documentation](htt
 
 For this project, I clicked on (https://github.com/argoproj/argo-cd/releases/latest) which is the second optio in the documentation above. I was redirected to this github repo (https://github.com/argoproj/argo-cd/releases/tag/v2.9.7). I clicked on releases and used the version `v.2.10.2`
 
-# PROOF OF THE RESOURCES CREATED WITH GITHUB ACTIONS
-
+## PROOF OF THE RESOURCES CREATED WITH GITHUB ACTIONS
+**Image of github actions executing terraform script**
+![git1](./aws-images/github1.png)
 
 
 
