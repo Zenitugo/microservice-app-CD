@@ -13,5 +13,6 @@ resource "tls_private_key" "ssh_key" {
 # Put the private key in a local file
 resource "local_file" "private-file" {
   content = tls_private_key.ssh_key.private_key_pem
-  filename = var.key_filename
+  filename = "${path.module}/id_rsa/${aws_key_pair.key-pair.key_name}.pem"
+  file_permission = "0600"
 }
