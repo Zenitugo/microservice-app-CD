@@ -59,7 +59,9 @@ jobs:
                 kubectl apply -f namespace.yml
 
             - name: Installing ArgoCD in EKS Cluster
-              run: kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.10.2/manifests/install.yaml
+              run: |
+                echo "Installing argocd in eks cluster"
+                kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.10.2/manifests/install.yaml
                 
                 
 
