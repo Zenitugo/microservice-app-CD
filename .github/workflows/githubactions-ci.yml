@@ -32,8 +32,8 @@ jobs:
                 #aws configure set aws-secret-access-key {{ secrets.AWS_SECRET_ACCESS_KEY }} --profile deb
 
             - name: Destroy existing terraform resources
-              run: terraform destoy -auto-approve
-              
+              run: terraform destroy -auto-approve
+
             - name: Create S3 buckets and dynamodb table
               run: |
                 echo "Creating s3 bucket and dynamodb table"
