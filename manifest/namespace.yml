@@ -27,10 +27,4 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: loadtest
-
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: argocd
