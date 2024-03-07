@@ -105,11 +105,18 @@ Password = aDvrTGBD0AGzkIre
 
 ## DEPLOYING SOCK-SHOP APPLICATION ON EKS CLUSTER
 **Step 1: Deploy sock-shop yml files**
+Argocd can be used to deploy application through the argocd UI or through scripts. 
 
 Create the app project on argocd dashboard by:
   - indicating the project name
   - github repo link
   - path to the sock-shop directory 
+
+This project made use of iac to deploy application with argocd. Check the `argocd-sync` directory to the see the scripts used to deploy:
+- sock-shop web application
+- prometheus
+- grafana
+- 
 ![app](./app-images/app-tree1.png)
 ![app](./app-images/app-tree2.png)
 ![app](./app-images/app-tree3.png)
