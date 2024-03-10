@@ -7,26 +7,25 @@ metadata:
 data:
   config.yml: |-
     global:
-      slack_api_url: https://hooks.slack.com/services/API_URL_SECRET
-
+      slack_api_url: https://hooks.slack.com/services/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
     route:
       group_by: [cluster]
       # If an alert isn't caught by a route, send it slack.
-      receiver: slack-all
+      receiver: slack-notification
       routes:
         - match:
             severity: slack
-          receiver: slack-all
+          receiver: slack-notification
 
 
     receivers:
-    - name: 'slack-all'
+    - name: 'slack-notification'
       slack_configs:
-      - channel: '#sockshop-ops'
+      - channel: '#prometheusalerts'
         send_resolved: true
         title: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ end }}"
         text: "{{ range .Alerts }}{{ .Annotations.description }}\n{{ end }}"
-        api_url: https://hooks.slack.com/services/API_URL_SECRET
+        api_url: https://hooks.slack.com/services/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
   configure_secret.sh: |-
     echo 'Configuring Slack hook url.'
     sed -i -e s,API_URL_SECRET,"$SLACK_HOOK_URL",g /etc/alertmanager/config.yml
