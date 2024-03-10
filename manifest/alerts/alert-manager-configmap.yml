@@ -7,7 +7,7 @@ metadata:
 data:
   config.yml: |-
     global:
-      slack_hook_url: https://hooks.slack.com/services/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
+      slack_api_url: https://hooks.slack.com/services/${SLACK_HOOK_URL}
     route:
       group_by: [cluster]
       # If an alert isn't caught by a route, send it slack.
@@ -25,8 +25,7 @@ data:
         send_resolved: true
         title: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ end }}"
         text: "{{ range .Alerts }}{{ .Annotations.description }}\n{{ end }}"
-        api_url: https://hooks.slack.com/services/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
-  configure_secret.sh: |-
+        api_url: https://hooks.slack.com/services/${SLACK_HOOK_URL}
     echo 'Configuring Slack hook url.'
     sed -i -e s,API_URL_SECRET,"$SLACK_HOOK_URL",g /etc/alertmanager/config.yml
     exec /bin/alertmanager $*
