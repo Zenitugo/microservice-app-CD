@@ -188,4 +188,7 @@ On the grafana dashboard
 ![graf](./monitoring-images/grafana6.png)
 
 
+# DEPLOYMENT OF ALERT MANAGER IN EKS
+# Create a secret for your slack_webhook_url
+kubectl create secret generic slack-hook-url --from-literal=slack-hook-url=https://hooks.slack.com/services/YOUR_SLACK_WEBHOOK_URL
 
