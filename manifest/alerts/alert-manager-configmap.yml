@@ -7,7 +7,7 @@ metadata:
 data:
   config.yml: |-
     global:
-      slack_api_url: https://hooks.slack.com/services/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
+      slack_hook_url: https://hooks.slack.com/services/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
     route:
       group_by: [cluster]
       # If an alert isn't caught by a route, send it slack.
