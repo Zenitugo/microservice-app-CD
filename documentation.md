@@ -116,7 +116,7 @@ This project made use of iac to deploy application with argocd. Check the `argoc
 - sock-shop web application
 - prometheus
 - grafana
-- 
+- ElasticSearch
 ![app](./app-images/app-tree1.png)
 ![app](./app-images/app-tree2.png)
 ![app](./app-images/app-tree3.png)
@@ -141,4 +141,51 @@ Go through the same process as before but indicate the path to the routing-polic
 
 
 # DEPLOYING PROMETHEUS AND GRAFANA APPLICATION ON EKS WITH ARGOCD
-Prometheus is 
+Prometheus is an open-source monitoring and alerting toolkit designed for reliability and scalability, specializing in time-series data collection and analysis. 
+
+Grafana is an open-source analytics and visualization platform that integrates with Prometheus and other data sources, offering customizable dashboards and powerful visualization capabilities. 
+
+The same process for deploying the socks web application was used to deploy prometheus and grafana with argocd.
+To access grafana dashboard you can use the `kubectl get secret` command like I used in getting the password for argocd but in this case it is different. In the deployment file an environmental variable was set for admin and password.
+
+Input the admin name and password and follow the instruction to change password.
+**Step 1**
+On the grafana dashboard
+- click on data source
+- select prometheus
+- copy the prometheus url and input in the url input field
+- click save & test.
+
+**Step 2**
+On the grafana dashboard
+- click on create your first dashboard
+- click on import
+- type in the dashboard number. For this project I will be using (`6417 for cluster`, `3662 for a general overview of the cluster` & `3119 for monitoring system`)
+- click on load
+- click on datasource (prometheus)
+- click on import
+
+##  PROOF OF PROMETHEUS AND GRAFANA DEPLOYMENT WITH ARGOCD
+![prom](./monitoring-images/app-pods.png)
+![prom](./monitoring-images/app-tree1.png)
+![prom](./monitoring-images/app-tree2.png)
+![prom](./monitoring-images/app-tree3.png)
+![prom](./monitoring-images/prom-dashboard.png)
+
+## PROOF OF PROMETHEUS & GRAFANA MONITORING OF WEB SOCK APPLICATION
+![prom](./monitoring-images/prom-api-servers.png)
+![prom](./monitoring-images/prom-node-exporter.png)
+![prom](./monitoring-images/prom-pod.png)
+![prom](./monitoring-images/prom1.png)
+![prom](./monitoring-images/prom-node2.png)
+![prom](./monitoring-images/prom-svc-endpoint.png)
+![graf](./monitoring-images/graph-eks.png)
+![graf](./monitoring-images/grafana1.png)
+![graf](./monitoring-images/grafana2.png)
+![graf](./monitoring-images/grafana3.png)
+![graf](./monitoring-images/grafana4.png)
+![graf](./monitoring-images/grafana5.png)
+![graf](./monitoring-images/grafana6.png)
+
+
+
