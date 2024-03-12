@@ -2,21 +2,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: sockshop-logs
+  name: sockshop-web-application
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/Zenitugo/microservice-app-CD
     targetRevision: HEAD
-    path: ./manifest/logging
+    path: ./Let's-Encrypt
   destination: 
     server: https://kubernetes.default.svc
-    namespace: kube-system
+    namespace: ingress-nginx
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
-    - Validate=true
     automated:
       selfHeal: true
       prune: true
