@@ -52,7 +52,7 @@ ArgoCD is a declarative, GitOps continuous delivery tool for Kubernetes. It enab
 
 ## ACCESSING ARGOCD DASHBOARD
 The argocd-server had a cluster ip so the service type was changed to a loadbalancer. This was done by:
-
+- running the command `kubectl get all -n argocd`
 - editing argocd server: `kubectl edit svc argocd-server -n argocd`
 - changing the type to **LoadBalancer**
 - running `kubectl get svc -n argocd`
@@ -192,3 +192,54 @@ On the grafana dashboard
 # Create a secret for your slack_webhook_url
 kubectl create secret generic slack-hook-url --from-literal=slack-hook-url=https://hooks.slack.com/services/YOUR_SLACK_WEBHOOK_URL
 
+
+
+# LET'S ENCRYPT
+**Step 1**
+Install ingress controller: The nginx-ingress controller was installed in the  cluster and it is using cert-manager to automatically provision TLS certificates from Let’s Encrypt CERTIFICATE FOR OUR DOMAIN NAME.
+
+The script for the nginx controller was gotten from (https://weaveworks-gitops.awsworkshop.io/25_workshop_2_ha-dr/50_add_yamls/10_alb_ingress.html)
+
+**Step 2**
+The next thing is to create a tls key and certificate and this can be done by running the command:
+
+``` 
+openssl req -x509 -nodes -days 365 -newkey rsa:2048     -out self-signed-tls.crt      -keyout self-signed-tls.key      -subj "/CN=<domain-name>/O=self-signed-tls"
+
+```
+
+**Step 3**
+Create a kubernetes secret and pass in the key and certificate  that you have generated into it, here is an example of how to do this:
+```
+kubectl create secret tls self-signed-tls --key self-signed-tls.key --cert self-signed-tls.crt
+
+```
+
+**Step 4**
+Create the ingress. Note it will only work if you have installed the ingress-controller.
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+  - hosts:
+    - xyz.com # Replace with your cluster DNS name
+    secretName: self-signed-tls
+  rules:
+  - host: xyz.com # Replace with your cluster DNS name
+    http:
+      paths:
+      - backend:
+          service:
+            name: demo
+            port:
+              number: 8080
+        path: /demo
+        pathType: Prefix 
+
+```
+Then deploy this file with command `kubectl apply -f <filename>`
