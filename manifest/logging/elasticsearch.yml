@@ -1,6 +1,6 @@
 ---
 apiVersion: apps/v1
-kind: 
+kind: Deployment 
 metadata:
   name: elasticsearch
   namespace: kube-system
