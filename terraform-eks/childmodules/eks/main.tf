@@ -64,7 +64,7 @@ resource "aws_eks_addon" "csi_driver" {
   cluster_name             = aws_eks_cluster.eks-cluster.name
   addon_name               = var.addon_name
   addon_version            = data.aws_eks_addon_version.latest.version
-  service_account_role_arn = aws_iam_role.eks_ebs_csi_driver.arn
+  service_account_role_arn = var.ebs-csi-role
 
   depends_on = [ aws_iam_openid_connect_provider.eks ]
 

@@ -13,3 +13,4 @@ variable "ContainerRegistry" {}
 variable "public-subnet-ids" {}
 variable "key-id" {}
 variable "addon_name" {}
+variable "ebs-csi-role" {}
