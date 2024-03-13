@@ -10,4 +10,5 @@ variable "cluster-rolename" {}
 variable "node-role-name" {}
 variable "key_filename" {}
 variable "sg-name" {}
-
+variable "addon_name" {}
+variable "role_name" {}

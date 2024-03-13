@@ -65,3 +65,15 @@ resource "aws_iam_role_policy_attachment" "ContainerRegistry" {
   role       = aws_iam_role.worker-node-role.name
 }
 
+
+# IAM role for csi drive addon
+resource "aws_iam_role" "eks_ebs_csi_driver" {
+  assume_role_policy = data.aws_iam_policy_document.csi.json
+  name               = var.role_name
+}
+
+#Policy attachemet to iam role addon
+resource "aws_iam_role_policy_attachment" "amazon_ebs_csi_driver" {
+  role       = aws_iam_role.eks_ebs_csi_driver.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+}

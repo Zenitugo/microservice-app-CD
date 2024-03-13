@@ -12,3 +12,4 @@ variable "CNIPolicy" {}
 variable "ContainerRegistry" {}
 variable "public-subnet-ids" {}
 variable "key-id" {}
+variable "addon_name" {}
