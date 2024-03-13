@@ -21,10 +21,10 @@ spec:
         - containerPort: 9200
         resources:
           limits:
-            memory: "4Gi"
+            memory: "2Gi"
             cpu: "500m"
           requests:
-            memory: "4Gi"
+            memory: "2Gi"
             cpu: 500m
         
       
