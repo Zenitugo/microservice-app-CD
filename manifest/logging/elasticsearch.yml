@@ -17,15 +17,14 @@ spec:
       containers:
       - name: elasticsearch
         image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
-        ports:
-        - containerPort: 9200
         resources:
+          requests:
+            memory: "2Gi"
+            cpu: "200m"
           limits:
             memory: "2Gi"
             cpu: "500m"
-          requests:
-            memory: "2Gi"
-            cpu: 500m
+          
         
       
 ---
@@ -39,7 +38,7 @@ spec:
     name: elasticsearch
   type: LoadBalancer
   ports:
-  - protocol: TCP
-    port: 9200
-    targetPort: 9200
+    - protocol: TCP
+      port: 9200
+      targetPort: 9200
   

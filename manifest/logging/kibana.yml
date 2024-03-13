@@ -29,10 +29,10 @@ metadata:
   namespace: kube-system  
 spec:
   selector:
-    name: kibana
+    app: kibana
   type: LoadBalancer
   ports:
-  - protocol: TCP
-    port: 5601
-    targetPort: 5601
-  
+    - protocol: TCP
+      port: 5601
+      targetPort: 5601
+   
