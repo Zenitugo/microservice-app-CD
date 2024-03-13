@@ -7,4 +7,6 @@ data "aws_eks_addon_version" "latest" {
   addon_name         = var.addon_name
   kubernetes_version = aws_eks_cluster.eks-cluster.version
   most_recent        = true
+
+  depends_on = [ aws_eks_cluster.eks-cluster ]
 }
