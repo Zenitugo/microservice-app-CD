@@ -16,7 +16,7 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: socks-shopDB
+  name: socks-shopdb
   
 ---
 apiVersion: v1

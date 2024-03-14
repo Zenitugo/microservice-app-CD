@@ -13,6 +13,6 @@ spec:
     - client auth
   dnsNames:
   - "sockshop.sock-shop.svc.cluster.local"
-  - "db.sock-shopDB.svc.cluster.local"
+  - "db.sock-shopdb.svc.cluster.local"
   issuerRef:
     name: sock-shop-ca-issuer

@@ -92,7 +92,7 @@ jobs:
               with:
                 payload: |
                   {
-                    "text": "Github Actions Complete, CI pipeleine successful"
+                    "text": "Github Actions Complete, CI pipeline successful"
                    }
               env:
                 SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}

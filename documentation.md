@@ -45,14 +45,22 @@ These are helm charts that were installed so that a free ssl certificate can be 
 ![git2](./aws-images/github2.png)
 ![git1](./aws-images/github1.png)
 
-**Image of VPC, subnets, nat-gateway, eip and route-tables created**
+**Image of VPC, subnets, nat-gateway, eip, route-tables, S3, dynamoDB, iam, oidc created**
 ![vpc](./aws-images/vpc.png)
-![sub1](./aws-images/subnet1.png)
-![sub2](./aws-images/subnet2.png)
+![sub1](./aws-images/subnet.png)
+![sub2](./aws-images/nat.png)
 ![igw](./aws-images/igw.png)
-![natgw](./aws-images/nat.png)
-![rt](./aws-images/rt.png)
-![eip](./aws-images/eip.png)
+![eip](./aws-images/elasticip.png)
+![rt](./aws-images/routetable1.png)
+![rt](./aws-images/routetable2.png)
+![rt](./aws-images/routetable3.png)
+![s3](./aws-images/s3.png)
+![db](./aws-images/db-table.png)
+![iam](./aws-images/iam.png)
+![oidc](./aws-images/oidc.png)
+![eks](./aws-images/eks.png)
+![addon](./aws-images/ebs-csi-addon.png)
+
 
 **Images of eks and worker nodes**
 ![eks](./aws-images/eks.png)
