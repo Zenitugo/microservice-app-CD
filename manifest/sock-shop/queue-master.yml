@@ -41,7 +41,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: queue-master
+  name: queue-master-svc
   annotations:
         prometheus.io/scrape: 'true'
   labels:

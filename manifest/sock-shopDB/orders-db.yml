@@ -1,24 +1,24 @@
-# Deployment script for carts database section of the application
+# Deployment script for orders database section of the application
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: carts-db
+  name: orders-db
   labels:
-    name: carts-db
-  namespace: sock-shop
+    name: orders-db
+  namespace: sock-shopDB
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: carts-db
+      name: orders-db
   template:
     metadata:
       labels:
-        name: carts-db
+        name: orders-db
     spec:
       containers:
-      - name: carts-db
+      - name: orders-db
         image: mongo
         ports:
         - name: mongo
@@ -42,19 +42,19 @@ spec:
       nodeSelector:
         beta.kubernetes.io/os: linux
 
-# Service script to expose cart database section of the application
+# Service script to expose cart orders database section of the application
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: carts-db
+  name: orders-db-svc
   labels:
-    name: carts-db
-  namespace: sock-shop
+    name: orders-db
+  namespace: sock-shopDB
 spec:
   ports:
     # the port that this service should serve on
   - port: 27017
     targetPort: 27017
   selector:
-    name: carts-db
+    name: orders-db

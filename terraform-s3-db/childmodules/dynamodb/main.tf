@@ -1,3 +1,4 @@
+# Create dynamodb table to lock terraform state files
 resource "aws_dynamodb_table" "dynamodb-table" {
   name           = var.db-name
   billing_mode   = var.billing_mode

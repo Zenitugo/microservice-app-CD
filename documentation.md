@@ -3,10 +3,12 @@
 - ArgoCD for deploy application on AWS Elastic Kubernetes Service
 - Prometheus for monitoring cluster
 - Grafana for visualizing metrics gotten with prometheus
-- EFK which stands for ElasticSearch Fluentd & Kibana for logging
+- ELK which stands for ElasticSearch Logstash & Kibana for logging
+
 
 # GITHUB ACTIONS
-Github actions was used to create S3 bucket, DynamoDB table, Kubenetes cluster in AWS and install ArgoCD in the cluster
+Github actions was used to create S3 bucket, DynamoDB table, Kubenetes cluster in AWS and install ArgoCD, ArgoCD Notifications, Nginx-Ingress controller and Cert Manager in the cluster.
+
 ## TERRAFORM-S3-DB
 This directory hold the terraform resources used to create an s3 bucket and a dynamodb table.
 
@@ -19,12 +21,23 @@ The `terraform-eks` folder contains all the necessary files for creating the EKS
 - vpc with public and private subnets in three availability zones.
 - Security groups for the worker nodes.
 - Keys to access the workernodes within the cluster.
+- eks-csi-drive addon to attach volumes to any pods requiring more volume.
 
 ## ARGOCD INSTALLATION
-ArgoCD was installed with github actions but first the cluster was accessed with this command `aws eks update-kubeconfig --name <name of cluster>`
+ArgoCD was installed with github actions but first the cluster was accessed with this command 
+
+`aws eks update-kubeconfig --name <name of cluster>`
+
 To install ArgoCD on your Kubernetes you can go through this [documentation](https://argo-cd.readthedocs.io/en/stable/getting_started/) 
 
 For this project, I clicked on (https://github.com/argoproj/argo-cd/releases/latest) which is the second optio in the documentation above. I was redirected to this github repo (https://github.com/argoproj/argo-cd/releases/tag/v2.9.7). I clicked on releases and used the version `v.2.10.2`
+
+
+Also ArgoCD notifications was installed to receive deployment status notification via Slack. 
+
+## NGINX-INGRESS CONTROLLER AND CERT MANAGER
+These are helm charts that were installed so that a free ssl certificate can be issued to the domain name `sockshop.zenitugo.com.ng`. This is to allow the web application be viewed over port 443 (https)
+
 
 ## PROOF OF THE RESOURCES CREATED WITH GITHUB ACTIONS
 **Image of github actions executing terraform script**
@@ -46,7 +59,7 @@ For this project, I clicked on (https://github.com/argoproj/argo-cd/releases/lat
 ![nodes](./aws-images/nodes.png)
 
 
-# ARGOCD DEPLOYMENT OF SOCKS SHOP APPLICATION
+# ARGOCD 
 ArgoCD is a declarative, GitOps continuous delivery tool for Kubernetes. It enables developers to manage and deploy applications on Kubernetes clusters using Git repositories as the source of truth for defining the desired application state.
 
 
@@ -90,6 +103,26 @@ To decrypt the password run:
 Password = aDvrTGBD0AGzkIre
 
 
+## ARGOCD-SLACK ALERTS
+The alerts were configured using slack as the notification method. To enable this you need to:
+- Open a Slack Account and create a workspace. 
+- Confirm the deployment of ArgoCD notification pods by running the command
+
+      `kubectl get cm argocd-notifications-cm -n <argocd-namespace> -o yaml`
+- Configure secrets and tokens by:
+    ```
+      kubectl patch secret argocd-notifications-secret -n <argocd-namespace> \
+       --type merge --patch '{"stringData":{"slack-token": "<your-slack-token>"}}'
+
+    ```
+- Check if it has been added by running 
+
+      `kubectl get secret argocd-notifications-secret -n <argocd-namespace> -o yaml`
+- Configure Slack integration in the argocd-notifications-cm ConfigMap by running the command 
+
+       `kubectl patch configmap argocd-notifications-cm -n <argocd-namespace> --type merge -p '{"data": {"service.slack": "token: $slack-token"}}'`
+
+
 ## INSTALL ARGOCD CLI
 - Go to (https://github.com/argoproj/argo-cd/releases) which is the link you copied the link to install argocd.
 - scroll down to assets
@@ -103,8 +136,10 @@ Password = aDvrTGBD0AGzkIre
 - `argocd login <ip of the argocd-server>`
 - input the username and password.
 
+
+
 ## DEPLOYING SOCK-SHOP APPLICATION ON EKS CLUSTER
-**Step 1: Deploy sock-shop yml files**
+**Step 1: Deploy sock-shop  and sock-shop database yml files**
 Argocd can be used to deploy application through the argocd UI or through scripts. 
 
 Create the app project on argocd dashboard by:
@@ -113,10 +148,11 @@ Create the app project on argocd dashboard by:
   - path to the sock-shop directory 
 
 This project made use of iac to deploy application with argocd. Check the `argocd-sync` directory to the see the scripts used to deploy:
-- sock-shop web application
-- prometheus
-- grafana
-- ElasticSearch
+  - sock-shop web application
+  - sock-shop database
+  - monitoring tools like prometheus and grafana
+  - logging tools like elastic search and kibanna
+  - lets's encrypt certificates.
 ![app](./app-images/app-tree1.png)
 ![app](./app-images/app-tree2.png)
 ![app](./app-images/app-tree3.png)
@@ -188,58 +224,5 @@ On the grafana dashboard
 ![graf](./monitoring-images/grafana6.png)
 
 
-# DEPLOYMENT OF ALERT MANAGER IN EKS
-# Create a secret for your slack_webhook_url
-kubectl create secret generic slack-hook-url --from-literal=slack-hook-url=https://hooks.slack.com/services/YOUR_SLACK_WEBHOOK_URL
 
 
-
-# LET'S ENCRYPT
-**Step 1**
-Install ingress controller: The nginx-ingress controller was installed in the  cluster and it is using cert-manager to automatically provision TLS certificates from Let’s Encrypt CERTIFICATE FOR OUR DOMAIN NAME.
-
-The script for the nginx controller was gotten from (https://weaveworks-gitops.awsworkshop.io/25_workshop_2_ha-dr/50_add_yamls/10_alb_ingress.html)
-
-**Step 2**
-The next thing is to create a tls key and certificate and this can be done by running the command:
-
-``` 
-openssl req -x509 -nodes -days 365 -newkey rsa:2048     -out self-signed-tls.crt      -keyout self-signed-tls.key      -subj "/CN=<domain-name>/O=self-signed-tls"
-
-```
-
-**Step 3**
-Create a kubernetes secret and pass in the key and certificate  that you have generated into it, here is an example of how to do this:
-```
-kubectl create secret tls self-signed-tls --key self-signed-tls.key --cert self-signed-tls.crt
-
-```
-
-**Step 4**
-Create the ingress. Note it will only work if you have installed the ingress-controller.
-```
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: demo-ingress
-  annotations:
-    kubernetes.io/ingress.class: nginx
-spec:
-  tls:
-  - hosts:
-    - xyz.com # Replace with your cluster DNS name
-    secretName: self-signed-tls
-  rules:
-  - host: xyz.com # Replace with your cluster DNS name
-    http:
-      paths:
-      - backend:
-          service:
-            name: demo
-            port:
-              number: 8080
-        path: /demo
-        pathType: Prefix 
-
-```
-Then deploy this file with command `kubectl apply -f <filename>`

@@ -50,7 +50,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: rabbitmq
+  name: rabbitmq-svc
   annotations:
         prometheus.io/scrape: 'true'
         prometheus.io/port: '9090'

@@ -57,7 +57,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: front-end
+  name: front-end-svc
   annotations:
         prometheus.io/scrape: 'true'
   labels:

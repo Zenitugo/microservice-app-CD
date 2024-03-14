@@ -1,25 +1,26 @@
-# Deployment script for orders database section of the application
+# Deployment script for user database section of the application
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: orders-db
+  name: user-db
   labels:
-    name: orders-db
-  namespace: sock-shop
+    name: user-db
+  namespace: sock-shopDB
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: orders-db
+      name: user-db
   template:
     metadata:
       labels:
-        name: orders-db
+        name: user-db
     spec:
       containers:
-      - name: orders-db
-        image: mongo
+      - name: user-db
+        image: weaveworksdemos/user-db:0.3.0
+
         ports:
         - name: mongo
           containerPort: 27017
@@ -42,19 +43,20 @@ spec:
       nodeSelector:
         beta.kubernetes.io/os: linux
 
-# Service script to expose cart orders database section of the application
+# Service script to expose user database section of the application
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: orders-db
+  name: user-db-svc
   labels:
-    name: orders-db
-  namespace: sock-shop
+    name: user-db
+  namespace: sock-shopDB
 spec:
   ports:
     # the port that this service should serve on
   - port: 27017
     targetPort: 27017
   selector:
-    name: orders-db
+    name: user-db
+

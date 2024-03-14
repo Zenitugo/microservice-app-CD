@@ -1,3 +1,4 @@
+# Qurey the aws infrastructure for the provider url
 data "tls_certificate" "eks" {
   url = aws_eks_cluster.eks-cluster.identity[0].oidc[0].issuer
 }

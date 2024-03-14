@@ -4,15 +4,19 @@ kind: Application
 metadata:
   name: sockshop-web-application
   namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-deployed.slack: argocdnotification
+    notifications.argoproj.io/subscribe.on-sync-failed.slack: argocdnotification
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: argocdnotification    
 spec:
   project: default
   source:
     repoURL: https://github.com/Zenitugo/microservice-app-CD
     targetRevision: HEAD
-    path: ./Lets-Encrypt
+    path: ./manifest/sock-shopDB
   destination: 
     server: https://kubernetes.default.svc
-    namespace: ingress-nginx
+    namespace: sock-shop
   syncPolicy:
     syncOptions:
     - CreateNamespace=true

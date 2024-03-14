@@ -1,0 +1,18 @@
+# Cerificate signed by CA for sockshop ad and sockshopDB communication
+---
+apiVersion: cert-manager.io/v1
+kind: Cerificate
+metadata:
+  name: sockshop-cert
+  namespace: cert-manager 
+spec:
+  secretName: sockshop-cert
+  isCA: false
+  usages:
+    - server auth
+    - client auth
+  dnsNames:
+  - "sockshop.sock-shop.svc.cluster.local"
+  - "db.sock-shopDB.svc.cluster.local"
+  issuerRef:
+    name: sock-shop-ca-issuer

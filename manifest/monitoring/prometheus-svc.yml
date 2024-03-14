@@ -6,7 +6,7 @@ metadata:
     prometheus.io/scrape: 'true'
   labels:
     name: prometheus
-  name: prometheus
+  name: prometheus-svc
   namespace: monitoring
 spec:
   selector:
@@ -17,3 +17,4 @@ spec:
     protocol: TCP
     port: 9090
     targetPort: 9090
+ 

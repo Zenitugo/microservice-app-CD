@@ -6,7 +6,7 @@ metadata:
   name: session-db
   labels:
     name: session-db
-  namespace: sock-shop
+  namespace: sock-shopDB
 spec:
   replicas: 1
   selector:
@@ -42,10 +42,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: session-db
+  name: session-db-svc
   labels:
     name: session-db
-  namespace: sock-shop
+  namespace: sock-shopDB
 spec:
   ports:
     # the port that this service should serve on
