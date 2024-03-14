@@ -86,7 +86,18 @@ jobs:
                 echo "Installing cert manager in eks cluster"
                 kubectl apply -n ingress-nginx -f https://github.com/cert-manager/cert-manager/releases/download/v1.1.1/cert-manager.yml
 
-            
+
+            - name: Send notification to slack on the status of my pipeline
+              uses: slackapi/slack-github-action@v1.24.0
+              with:
+                payload: |
+                  {
+                    "text": "Github Actions Complete, CI pipeleine successful"
+                   }
+              env:
+                SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}
+                SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+              id: Slack      
 
 
                            
