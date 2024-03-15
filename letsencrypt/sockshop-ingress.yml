@@ -1,5 +1,5 @@
 # Configuration to issue a let's encrypt certificate for the socks shop domain name.
-# Note: Domain name is 'zenitugo.com.ng'  and sub-domain name is 'sockshop'
+# Note: Domain name is 'zenitugo.com.ng'  and sub-domain name is 'www'
 
 ---
 apiVersion: networking.k8s.io/v1
@@ -13,10 +13,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - sockshop.zenitugo.com.ng
+    - www.zenitugo.com.ng
     secretName: sockshop-tls-prod
   rules:
-  - host: sockshop.zenitugo.com.ng
+  - host: www.zenitugo.com.ng
     http:
       paths:
       - path: /
