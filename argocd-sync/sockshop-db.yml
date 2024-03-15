@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: https://github.com/Zenitugo/microservice-app-CD
     targetRevision: HEAD
-    path: ./manifest/sock-shopDB
+    path: ./manifest/sock-shopdb
   destination: 
     server: https://kubernetes.default.svc
     namespace: sock-shop

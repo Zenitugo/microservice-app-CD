@@ -7,7 +7,7 @@
 
 
 # GITHUB ACTIONS
-Github actions was used to create S3 bucket, DynamoDB table, Kubenetes cluster in AWS and install ArgoCD, ArgoCD Notifications, Nginx-Ingress controller and Cert Manager in the cluster.
+Github actions was used to create S3 bucket, DynamoDB table, Kubenetes cluster in AWS and install ArgoCD, Nginx-Ingress controller and Cert Manager in the cluster.
 
 ## TERRAFORM-S3-DB
 This directory hold the terraform resources used to create an s3 bucket and a dynamodb table.
@@ -32,18 +32,15 @@ To install ArgoCD on your Kubernetes you can go through this [documentation](htt
 
 For this project, I clicked on (https://github.com/argoproj/argo-cd/releases/latest) which is the second optio in the documentation above. I was redirected to this github repo (https://github.com/argoproj/argo-cd/releases/tag/v2.9.7). I clicked on releases and used the version `v.2.10.2`
 
-
-Also ArgoCD notifications was installed to receive deployment status notification via Slack. 
-
-## NGINX-INGRESS CONTROLLER AND CERT MANAGER
-These are helm charts that were installed so that a free ssl certificate can be issued to the domain name `sockshop.zenitugo.com.ng`. This is to allow the web application be viewed over port 443 (https)
-
+## SLACK ALERTS
+I configured a slack channel to my CI pipeline so I can get notified when the CI pipeline has been fully executed.
 
 ## PROOF OF THE RESOURCES CREATED WITH GITHUB ACTIONS
 **Image of github actions executing terraform script**
-![git3](./aws-images/github3.png)
-![git2](./aws-images/github2.png)
-![git1](./aws-images/github1.png)
+![git](./aws-images/githubactions.png)
+
+**Image of Slack Notification from Github Actions**
+![slack](./aws-images/github-slackalerts.png)
 
 **Image of VPC, subnets, nat-gateway, eip, route-tables, S3, dynamoDB, iam, oidc created**
 ![vpc](./aws-images/vpc.png)
@@ -58,13 +55,26 @@ These are helm charts that were installed so that a free ssl certificate can be 
 ![db](./aws-images/db-table.png)
 ![iam](./aws-images/iam.png)
 ![oidc](./aws-images/oidc.png)
-![eks](./aws-images/eks.png)
 ![addon](./aws-images/ebs-csi-addon.png)
 
 
 **Images of eks and worker nodes**
 ![eks](./aws-images/eks.png)
-![nodes](./aws-images/nodes.png)
+![node](./aws-images/nodes.png)
+
+
+**Images for crd for cert manager and argocd resources**
+![argo](./aws-images/argocdresources.png)
+![cert](./aws-images/cert1.png)
+
+
+
+# WHAT NEXT?
+
+### NGINX-INGRESS CONTROLLER AND CERT MANAGER
+These are helm charts that were installed so that a free ssl certificate can be issued to the domain name `sockshop.zenitugo.com.ng`. This is to allow the web application be viewed over port 443 (https).
+
+To install them execute the bash script `install.sh` on the eks cluster
 
 
 # ARGOCD 
