@@ -24,7 +24,7 @@ jobs:
               run: terraform init
               
             - name: Get Terraform state resources
-              run: terraform state list
+              run: terraform init -backend-config="bucket=zenitugo21" -backend-config="dynamodb_table=ugdatabase"
 
             - name: Destroy terraform resources
               run: terraform destroy -auto-approve
