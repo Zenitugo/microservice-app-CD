@@ -74,7 +74,7 @@ jobs:
                 
             - name: Install Cert Manager
               run: |
-                kubectl apply -n cert-manager -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.yaml
+                kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.yaml --namespace cert-manager
 
             - name: Install nginx ingress controller
               run:
