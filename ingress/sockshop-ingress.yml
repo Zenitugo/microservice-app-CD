@@ -1,6 +1,5 @@
 # Configuration to issue a let's encrypt certificate for the socks shop domain name.
 # Note: Domain name is 'zenitugo.com.ng'  and sub-domain name is 'www'
-
 ---
 apiVersion: extensions/v1
 kind: Ingress
