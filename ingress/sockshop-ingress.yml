@@ -2,7 +2,7 @@
 # Note: Domain name is 'zenitugo.com.ng'  and sub-domain name is 'www'
 
 ---
-apiVersion: networking.k8s.io/v1
+apiVersion: extensions/v1
 kind: Ingress
 metadata:
   name: sock-shop-ingress

@@ -8,15 +8,8 @@ spec:
   secretName: sockshop-tls  #This is where the certificate will be stored.
   issuerRef:
     name: letsencrypt-prod
-    kind: ClusterIssuer
-  commonName: "*.zenitugo.com.ng"   #This will be a wild card certificate
-  dnsNames: 
+    kind: ClusterIssuer 
+  dnsNames:
+    - "*.zenitugo.com.ng"    #This will be a wild card certificate
     - zenitugo.com.ng
-  acme:
-    config:
-      - dns01:
-          provider: aws-dns
-        domains:
-          - "*.zenitugo.com.ng"
-          - zenitugo.com.ng
-      
+ 
