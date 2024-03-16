@@ -11,12 +11,11 @@ spec:
     email: ugochiukaegbu17@gmail.com
     privateKeySecretRef:
       name: letsencrypt-prod         #Name of secret used to store the ACME account private key
-    solvers:
-      - selectors: {}
-        dns01:
-          route53:
-            region: eu-west-1
-            accessKeyID: input your access key 
-            secretAccessKeySecretRef:
-              name: aws_secret_key
-              key: AWS_SECRET_KEY        
+  solvers:
+    - dns01:
+        route53:
+          region: eu-west-1
+          accessKeyID: input your access key 
+          secretAccessKeySecretRef:
+            name: aws_secret_key
+            key: AWS_SECRET_KEY        
