@@ -6,8 +6,11 @@ metadata:
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-deployed.slack: argocdnotification
+    notifications.argoproj.io/subscribe.on-created.slack: argocdnotification
     notifications.argoproj.io/subscribe.on-sync-failed.slack: argocdnotification
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: argocdnotification
+    notifications.argoproj.io/subscribe.on-health-degraded.slack: argocdnotification
+    notifications.argoproj.io/subscribe.on-sync-running.slack: argocdnotification
 spec:
   project: default
   source:
