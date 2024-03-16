@@ -1,4 +1,3 @@
-# Deployment script for user front-view section of the application
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -19,7 +18,7 @@ spec:
     spec:
       containers:
       - name: user
-        image: weaveworksdemos/user:0.4.7
+        image: weaveworksdemos/user:0.4.6
         resources:
           limits:
             cpu: 300m
