@@ -84,7 +84,7 @@ ArgoCD is a declarative, GitOps continuous delivery tool for Kubernetes. It enab
 The argocd-server had a cluster ip so the service type was changed to a loadbalancer. This was done by:
 - running the command `kubectl get all -n argocd`
 - editing argocd server: `kubectl edit svc argocd-server -n argocd`
-- changing the type to **LoadBalancer**
+- changing the type to **LoadBalancer or NodePort**
 - running `kubectl get svc -n argocd`
 
 To get the password for the argocd run:
