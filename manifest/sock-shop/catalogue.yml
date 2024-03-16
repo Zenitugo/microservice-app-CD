@@ -19,7 +19,8 @@ spec:
     spec:
       containers:
       - name: catalogue
-        image: weaveworksdemos/catalogue:latest
+        image: weaveworksdemos/catalogue:0.3.5
+
         command: ["/app"]
         args:
         - -port=80
