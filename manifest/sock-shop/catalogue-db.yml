@@ -6,7 +6,7 @@ metadata:
   name: catalogue-db
   labels:
     name: catalogue-db
-  namespace: sock-shopDB
+  namespace: sock-shop
 spec:
   replicas: 1
   selector:
@@ -39,7 +39,7 @@ metadata:
   name: catalogue-db-svc
   labels:
     name: catalogue-db
-  namespace: sock-shopDB
+  namespace: sock-shop
 spec:
   ports:
     # the port that this service should serve on
