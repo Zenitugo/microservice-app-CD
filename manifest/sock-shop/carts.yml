@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: carts
-        image: weaveworksdemos/carts:sha-f4e8005
+        image: weaveworksdemos/carts:0.4.8
 
         env:
          - name: JAVA_OPTS
