@@ -11,8 +11,8 @@ spec:
     email: ugochiukaegbu17@gmail.com
     privateKeySecretRef:
       name: letsencrypt-prod         #Name of secret used to store the ACME account private key
-  solvers:
-    - selector: {}
-      http01:
-        ingress:
-          class: nginx     
+    solvers:
+      - selector: {}
+        http01:
+          ingress:
+            class: nginx     

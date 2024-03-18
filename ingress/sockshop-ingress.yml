@@ -1,7 +1,7 @@
 # Configuration to issue a let's encrypt certificate for the socks shop domain name.
 # Note: Domain name is 'zenitugo.com.ng'  and sub-domain name is 'www'
 ---
-apiVersion: extensions/v1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: sock-shop-ingress
@@ -10,7 +10,7 @@ metadata:
     app: front-end
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    cert-manager.io/cluster-issuer: "production"
 spec:
   tls:
   - hosts:
@@ -20,10 +20,11 @@ spec:
   - host: sockshop.zenitugo.com.ng
     http:
       paths:
-      - path: /
+      - pathType: Prefix
+        path: /
         backend:
           service:
-            name: front-end-svc
+            name: front-end
             port:
-              number: 8079
+              number: 80
   ingressClassName: nginx  
