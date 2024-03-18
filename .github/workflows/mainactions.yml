@@ -120,6 +120,7 @@ jobs:
           echo "Creating an eks cluster"
           cd terraform-eks
           cd devEnvironment
+          terraform init
           terraform destroy -auto-approve
 
       - name: Destroy S3 buckets and dynamodb table resources
@@ -127,6 +128,7 @@ jobs:
           echo "Creating s3 bucket and dynamodb table"
           cd terraform-s3-db
           cd rootmodules
+          terraform init
           terraform destroy -auto-approve
 
 
