@@ -12,3 +12,7 @@ variable "key_filename" {}
 variable "sg-name" {}
 variable "addon_name" {}
 variable "role_name" {}
+variable "alternative_name" {}
+variable "domain_name" {}
+variable "controller_role_name" {}
+variable "controller_policy_name" {}

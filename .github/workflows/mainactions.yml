@@ -1,0 +1,133 @@
+name: Workflow to create EKS and install ArgoCD
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        default: 'Terraform_apply'
+
+jobs:  
+  terraform_apply:
+    name: "Terraform_apply"
+    if: ${{ github.ref == 'refs/heads/master' && github.event.inputs.action == 'Terraform_apply' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+           
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.29.0'
+        id: Install
+
+      - name: Install helm
+        uses: azure/setup-helm@v4.1.0
+        with:
+          version: 'v3.14.0'
+        id: helm 
+        
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: eu-west-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3 
+
+      - name: Create S3 buckets and dynamodb table
+        run: |
+          echo "Creating s3 bucket and dynamodb table"
+          cd terraform-s3-db
+          cd rootmodules
+          terraform init
+          terraform plan -var-file="terraform.tfvars"
+          terraform apply -auto-approve
+
+      - name: Create an EKS cluster
+        run: |
+          echo "Creating an eks cluster"
+          cd terraform-eks
+          cd devEnvironment
+          terraform init
+          terraform plan -var-file="terraform.tfvars"
+          terraform apply -auto-approve
+
+      - name: Update kube config
+        run: aws eks update-kubeconfig --name mycluster
+
+      - name: Create Namespace in EKS
+        run: |
+          cd manifest
+          echo "Creating namespace"
+          kubectl apply -f namespace.yml
+
+      - name: Install ArgoCD in EKS Cluster
+        run: |
+          echo "Installing argocd in eks cluster"
+          kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.10.2/manifests/install.yaml 
+          
+      - name: Install CRD for cert manager
+        run: |
+          kubectl apply -n cert-manager -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.crds.yaml 
+                
+      - name: Install Cert Manager
+        run: |
+          kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.yaml 
+          
+      - name: Install nginx ingress controller
+        run:  |
+          kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.0/deploy/static/provider/aws/deploy.yaml
+          
+      - name: Send notification to slack on the status of my pipeline
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+                "text": "Github Actions Complete, CI pipeline successful"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        id: Slack      
+
+          
+  
+  terraform_destroy:
+    name: "Terraform_destroy"
+    if: ${{ github.ref == 'refs/heads/master' && github.event.inputs.action == 'Terraform_destroy' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+           aws-region: eu-west-1
+           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3 
+
+      - name: Destroy the EKS cluster
+        run: |
+          echo "Creating an eks cluster"
+          cd terraform-eks
+          cd devEnvironment
+          terraform destroy -auto-approve
+
+      - name: Destroy S3 buckets and dynamodb table resources
+        run: |
+          echo "Creating s3 bucket and dynamodb table"
+          cd terraform-s3-db
+          cd rootmodules
+          terraform destroy -auto-approve
+
+
+    

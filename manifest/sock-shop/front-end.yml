@@ -1,4 +1,4 @@
-# Deployment script for front-end section of the application
+#Deployment script for front end
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -52,7 +52,7 @@ spec:
       nodeSelector:
         beta.kubernetes.io/os: linux
 
-
+        
 # Service script to expose front-end section of the application to the outside world
 ---
 apiVersion: v1

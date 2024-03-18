@@ -43,7 +43,9 @@ module "iam" {
     node-role-name          = var.node-role-name 
     role_name               = var.role_name
     openid-url              = module.eks.openid-url 
-    openid-arn              = module.eks.openid-arn 
+    openid-arn              = module.eks.openid-arn
+    controller_role_name    = var.controller_role_name
+    controller_policy_name  = var.controller_policy_name
 }
 
 
@@ -52,4 +54,10 @@ module "keys" {
     source                  = "../childmodules/keys"
     key_filename            = var.key_filename
     key_name                = var.key_name
+}
+
+module "certificate" {
+    source                  = "../childmodules/certificate"
+    domain_name             = var.domain_name
+    alternative_name        = var.alternative_name  
 }

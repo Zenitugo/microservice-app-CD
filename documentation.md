@@ -241,5 +241,9 @@ On the grafana dashboard
 ![graf](./monitoring-images/grafana6.png)
 
 
+argocd (https://argo-cd.readthedocs.io/en/stable/getting_started/)
+cert manager (https://github.com/cert-manager/cert-manager/releases/tag/v1.14.4)
 
+ingress controller(https://kubernetes.github.io/ingress-nginx/deploy/#quick-start)
 
+load balancer controller json policy gotten from(https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/docs/install/iam_policy.json)

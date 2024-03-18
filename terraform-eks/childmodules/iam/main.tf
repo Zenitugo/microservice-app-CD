@@ -79,3 +79,25 @@ resource "aws_iam_role_policy_attachment" "amazon_ebs_csi_driver" {
   role                            = aws_iam_role.eks_ebs_csi_driver.name
   policy_arn                      = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
 }
+
+########################################################################################################
+########################################################################################################
+
+# Create Iam role for aws load balancer controller
+resource "aws_iam_role" "load_balancer_controller" {
+  assume_role_policy              = data.aws_iam_policy_document.controller.json
+  name                            = var.controller_role_name
+}
+
+# Create a policy to the iam role of the load balancer controller
+resource "aws_iam_policy" "aws_load_balancer_controller" {
+  policy                          = file("${path.module}/load-balancer-controller.json")
+  name                            = var.controller_policy_name
+}
+
+
+# Attach a policy to the the role of the load balancer
+resource "aws_iam_role_policy_attachment" "attach_policy" {
+  role                            = aws_iam_role.load_balancer_controller.name
+  policy_arn                      = aws_iam_policy.aws_load_balancer_controller.arn
+}

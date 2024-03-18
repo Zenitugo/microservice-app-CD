@@ -1,6 +1,6 @@
-name: Workflow to create EKS and install ArgoCD
+#name: Workflow to create EKS and install ArgoCD
 
-on:
+#on:
     push:
         branches: [ "master" ]
     pull_request:
