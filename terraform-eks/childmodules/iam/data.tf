@@ -1,4 +1,4 @@
-#Query AWS fot the iam policy document for ebs-csi-addon
+#Query AWS for the iam policy document for ebs-csi-addon
 data "aws_iam_policy_document" "csi" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]

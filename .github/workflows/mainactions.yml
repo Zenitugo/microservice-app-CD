@@ -23,12 +23,6 @@ jobs:
           version: 'v1.29.0'
         id: Install
 
-      - name: Install helm
-        uses: azure/setup-helm@v4.1.0
-        with:
-          version: 'v3.14.0'
-        id: helm 
-        
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -81,14 +75,14 @@ jobs:
           
       - name: Install nginx ingress controller
         run:  |
-          kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.0/deploy/static/provider/aws/deploy.yaml
+          kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v3.4.3/deploy/static/provider/aws/deploy.yaml
           
       - name: Send notification to slack on the status of my pipeline
         uses: slackapi/slack-github-action@v1.24.0
         with:
           payload: |
             {
-                "text": "Github Actions Complete, CI pipeline successful"
+                "text": "Github Actions Complete, CI pipeline successful: Docker image pushed to docker hub and EKS created successfully"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}
@@ -130,6 +124,19 @@ jobs:
           cd rootmodules
           terraform init
           terraform destroy -auto-approve
+
+      - name: Send notification to slack on the status of my pipeline
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+                "text": "Github Actions Complete, CI pipeline successful: EKS infrastructure destroyed successfully"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        id: Slack    
+  
 
 
     

@@ -56,8 +56,3 @@ module "keys" {
     key_name                = var.key_name
 }
 
-module "certificate" {
-    source                  = "../childmodules/certificate"
-    domain_name             = var.domain_name
-    alternative_name        = var.alternative_name  
-}

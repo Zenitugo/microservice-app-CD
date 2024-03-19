@@ -10,7 +10,7 @@ spec:
     server: https://acme-v02.api.letsencrypt.org/directory  #Acme server url
     email: ugochiukaegbu17@gmail.com
     privateKeySecretRef:
-      name: letsencrypt-prod         #Name of secret used to store the ACME account private key
+      name: letsencrypt-production         #Name of secret used to store the ACME account private key
     solvers:
       - selector: {}
         http01:
