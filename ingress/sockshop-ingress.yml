@@ -12,12 +12,9 @@ metadata:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: production
 spec:
-  tls:
-  - hosts:
-      - sockshop.zenitugo.com.ng
-    secretName: letsencrypt-production
+  ingressClassName: nginx
   rules:
-  - host: sockshop.zenitugo.com.ng
+  - host: sockshop.sapphireaura.com.ng
     http:
       paths:
       - pathType: Prefix
@@ -27,4 +24,8 @@ spec:
             name: front-end
             port:
               number: 80
-  ingressClassName: nginx  
+  tls:
+  - hosts:
+      - sockshop.sapphireaura.com.ng
+    secretName: letsencrypt-production
+    

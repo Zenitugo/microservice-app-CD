@@ -48,7 +48,7 @@ The alerts were configured using slack as the notification method. To enable thi
 - Confirm the deployment of ArgoCD notification pods by running the command
 
       `kubectl get cm argocd-notifications-cm -n <argocd-namespace> -o yaml`
-- Configure secrets and tokens by:
+- Configure secrets and tokens in the argocd config map by:
     ```
       kubectl patch secret argocd-notifications-secret -n <argocd-namespace> \
        --type merge --patch '{"stringData":{"slack-token": "<your-slack-token>"}}'

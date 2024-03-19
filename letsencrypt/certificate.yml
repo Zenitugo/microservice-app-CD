@@ -10,6 +10,6 @@ spec:
     name: letsencrypt-prod
     kind: ClusterIssuer 
   dnsNames:
-    - "*.zenitugo.com.ng"    #This will be a wild card certificate
-    - zenitugo.com.ng
+    - "*.sapphireaura.com.ng"    #This will be a wild card certificate
+    - "*.sapphireaura.com.ng"
  
