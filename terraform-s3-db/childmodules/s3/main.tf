@@ -2,7 +2,7 @@
 # Create new S3bucket
 resource "aws_s3_bucket" "bucket" {
   bucket             = var.bucket
-  force_destroy      = false
+  force_destroy      = true    #It is not ideal but for project purposes I am using true instead of false
 
   tags = {
     Name             = "my-buck"
