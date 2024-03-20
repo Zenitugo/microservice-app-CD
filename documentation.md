@@ -8,13 +8,7 @@ Microservices offer a modular and scalable approach to application development, 
 - Grafana for visualizing metrics gotten with prometheus
 - ELK which stands for ElasticSearch Logstash & Kibana for logging
 
-   
-
-To see the process of using Github Actions to automate the creation of EKS and installation of ArgoCD, you can refer to ()
-
-To see the process of getting ArgoCD started check ()
-
-
+  
 ## DEPLOYING SOCK-SHOP APPLICATION ON EKS CLUSTER
 **Deploy sock-shop yml files**
 Argocd can be used to deploy application through the argocd UI or through scripts. 

@@ -32,10 +32,15 @@ For this project, I clicked on (https://github.com/argoproj/argo-cd/releases/lat
 ### NGINX-INGRESS CONTROLLER AND CERT MANAGER
 The helm charts for ingress-nginx was installed and the YAML file of cert manger was deployed so that we can generate a free ssl certificate that will be issued issued to the domain name `sockshop.zenitugo.com.ng`. This is to allow the web application be viewed over port 443 (https).
 
-To install them execute the bash script `install.sh` on the eks cluster
 
 ### SLACK ALERTS
 I configured a slack channel to my CI pipeline so I can get notified when the CI pipeline has been fully executed.
+
+
+### LINKS TO OTHER README FILE
+- To see the ArgoCD Installation process (https://github.com/Zenitugo/microservice-app-CD/blob/master/argocd-sync/readme.md)
+- To see the deployment process of the sock-shop application and other monitoring/logging applications click(https://github.com/Zenitugo/microservice-app-CD/blob/master/documentation.md)
+- To see readup on the manifest click here (https://github.com/Zenitugo/microservice-app-CD/blob/master/manifest/readme.md)
 
 ### PROOF OF THE RESOURCES CREATED WITH GITHUB ACTIONS
 **Image of github actions executing terraform script**
