@@ -91,7 +91,7 @@ jobs:
         with:
           payload: |
             {
-                "text": "Github Actions Complete, CI pipeline successful: Docker image pushed to docker hub and EKS created successfully"
+                "text": "Github Actions Complete, CI pipeline: EKS created successfully"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}
