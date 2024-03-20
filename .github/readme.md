@@ -17,6 +17,8 @@ The `terraform-eks` folder contains all the necessary files for creating the EKS
 - Keys to access the workernodes within the cluster.
 - eks-csi-drive addon to attach volumes to any pods requiring more volume.
 
+The aws load balancer controller policy was gotten from (https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/docs/install/iam_policy.json)
+
 ### ARGOCD INSTALLATION
 ArgoCD was installed with github actions but first the cluster was accessed with this command 
 

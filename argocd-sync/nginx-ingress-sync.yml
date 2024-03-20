@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/Zenitugo/microservice-app-CD
     targetRevision: HEAD
-    path: ./letsencrypt
+    path: ./ingress
   destination: 
     server: https://kubernetes.default.svc
     namespace: ingress-nginx

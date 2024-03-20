@@ -1,5 +1,5 @@
 # ARGOCD 
-ArgoCD is a declarative, GitOps continuous delivery tool for Kubernetes. It enables developers to manage and deploy applications on Kubernetes clusters using Git repositories as the source of truth for defining the desired application state.
+ArgoCD is a declarative, GitOps continuous delivery tool for Kubernetes. It enables developers to manage and deploy applications on Kubernetes clusters using Git repositories as the source of truth for defining the desired application state. argocd (https://argo-cd.readthedocs.io/en/stable/getting_started/)
 
 
 ### ACCESSING ARGOCD DASHBOARD
@@ -75,10 +75,3 @@ The alerts were configured using slack as the notification method. To enable thi
 - `argocd login <ip of the argocd-server>`
 - input the username and password.
 
-
-## DEPLOYMENT PROCESS
-To carry out the deployment of the various applications, a bash script containing the names of all argocd script was executed.
-
-
-
-# PROOF OF DEPLOYMENT

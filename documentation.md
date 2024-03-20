@@ -1,20 +1,22 @@
-# TOOL USED IN THIS PROJECT
+# MICROSERVICE APPLICATION DEPLOYMENT PROCESS
+Microservices offer a modular and scalable approach to application development, allowing each component to be developed, deployed, and maintained independently.
+
+### TOOL USED IN THIS PROJECT
 - Github Actions for creating the Elastic Kubernetes Service and installing argocd in the cluster.
 - ArgoCD for deploy application on AWS Elastic Kubernetes Service
 - Prometheus for monitoring cluster
 - Grafana for visualizing metrics gotten with prometheus
 - ELK which stands for ElasticSearch Logstash & Kibana for logging
 
+   
 
+To see the process of using Github Actions to automate the creation of EKS and installation of ArgoCD, you can refer to ()
 
-
-
-
-
+To see the process of getting ArgoCD started check ()
 
 
 ## DEPLOYING SOCK-SHOP APPLICATION ON EKS CLUSTER
-**Step 1: Deploy sock-shop  and sock-shop database yml files**
+**Deploy sock-shop yml files**
 Argocd can be used to deploy application through the argocd UI or through scripts. 
 
 Create the app project on argocd dashboard by:
@@ -22,36 +24,45 @@ Create the app project on argocd dashboard by:
   - github repo link
   - path to the sock-shop directory 
 
-This project made use of iac to deploy application with argocd. Check the `argocd-sync` directory to the see the scripts used to deploy:
+This project made use of iac to deploy application with argocd. Check the `argocd-sync` directory to the see the scripts used to deploy. 
+To carry out the deployment of the various applications, a bash script containing the names of all argocd script was executed:
   - sock-shop web application
   - sock-shop database
   - monitoring tools like prometheus and grafana
   - logging tools like elastic search and kibanna
   - lets's encrypt certificates.
-![app](./app-images/app-tree1.png)
-![app](./app-images/app-tree2.png)
-![app](./app-images/app-tree3.png)
 
-Synchronise the app
-![app](./app-images/app-health.png)
-
-View the deployment on the terminal with `kubectl get all -n sock-shop`
-![app](./app-images/app-pods.png)
-
-**Step2: Deploy the routing-policy for sock-shop**
-Go through the same process as before but indicate the path to the routing-policy directory
-
-**Images of the application**
-![app](./app-images/socks-app1.png)
-![app](./app-images/socks-app2.png)
-![app](./app-images/sock-user1.png)
-![app](./app-images/sock-user2.png)
-![app](./app-images/sock-order.png)
-![app](./app-images/sock-catalogue.png)
+### PROOF OF DEPLOYMENT ON ARGOCD  DASHBOARD
+![arg](./argocd%20images/dashboard.png)
+![arg](./argocd%20images/tree1.png)
+![arg](./argocd%20images/tree2.png)
+![arg](./argocd%20images/tree3.png)
+![arg](./argocd%20images/tree4.png)
+![arg](./argocd%20images/tree5.png)
 
 
+###  INGRESS-NGINX CONTROLLER  & LET'S ENCRYPT CERTIFICATE
+Ingress Nginx Controller is a must have addon when you are using ingress resources in your applications. It acts as a reverse proxy and load balancer, in this case a Network load balancer. It is a Kubernetes resource responsible for managing external access to services within a Kubernetes cluster. It acts as a traffic manager, routing incoming requests to the appropriate services based on defined rules.
 
-# DEPLOYING PROMETHEUS AND GRAFANA APPLICATION ON EKS WITH ARGOCD
+Let's Encrypt is a free, automated, and open Certificate Authority (CA) that provides digital certificates for enabling HTTPS (SSL/TLS) encryption on websites. Let's Encrypt certificates are trusted by most modern web browsers, making them suitable for securing websites and web applications.
+
+To  enable https, we need to:
+- install ingress-nginx controller (https://kubernetes.github.io/ingress-nginx/deploy/#quick-start)
+- install cert manager (https://github.com/cert-manager/cert-manager/releases/tag/v1.14.4)
+- install cert manager kubectl plugin
+- create a ClusterIssuer (let's encrypt). 
+- create an ingress file that will define the rules. 
+
+Check the `letsencrypt` and `ingress` directory to see the files used to create cluster issuer and ingress rules for the application.
+
+## PROOF OF DEPLOYMENT OF A SECURED APPLICATION
+![app](./app%20images/socks1.png)
+![app](./app%20images/socks2.png)
+![app](./app%20images/sock3.png)
+
+
+
+## DEPLOYING PROMETHEUS AND GRAFANA APPLICATION ON EKS WITH ARGOCD
 Prometheus is an open-source monitoring and alerting toolkit designed for reliability and scalability, specializing in time-series data collection and analysis. 
 
 Grafana is an open-source analytics and visualization platform that integrates with Prometheus and other data sources, offering customizable dashboards and powerful visualization capabilities. 
@@ -71,37 +82,30 @@ On the grafana dashboard
 On the grafana dashboard
 - click on create your first dashboard
 - click on import
-- type in the dashboard number. For this project I will be using (`6417 for cluster`, `3662 for a general overview of the cluster` & `3119 for monitoring system`)
+- type in the dashboard number. For this project I will be using (`3662 for a general overview of the cluster` & `3119 for monitoring system`)
 - click on load
 - click on datasource (prometheus)
 - click on import
 
-##  PROOF OF PROMETHEUS AND GRAFANA DEPLOYMENT WITH ARGOCD
-![prom](./monitoring-images/app-pods.png)
-![prom](./monitoring-images/app-tree1.png)
-![prom](./monitoring-images/app-tree2.png)
-![prom](./monitoring-images/app-tree3.png)
-![prom](./monitoring-images/prom-dashboard.png)
-
-## PROOF OF PROMETHEUS & GRAFANA MONITORING OF WEB SOCK APPLICATION
-![prom](./monitoring-images/prom-api-servers.png)
-![prom](./monitoring-images/prom-node-exporter.png)
-![prom](./monitoring-images/prom-pod.png)
-![prom](./monitoring-images/prom1.png)
-![prom](./monitoring-images/prom-node2.png)
-![prom](./monitoring-images/prom-svc-endpoint.png)
-![graf](./monitoring-images/graph-eks.png)
-![graf](./monitoring-images/grafana1.png)
-![graf](./monitoring-images/grafana2.png)
-![graf](./monitoring-images/grafana3.png)
-![graf](./monitoring-images/grafana4.png)
-![graf](./monitoring-images/grafana5.png)
-![graf](./monitoring-images/grafana6.png)
+### PROOF OF APP MONITORING
+![monitor](./monitoring-images/prom1.png)
+![monitor](./monitoring-images/prom2.png)
+![monitor](./monitoring-images/prom3.png)
+![monitor](./monitoring-images/prom4.png)
+![monitor](./monitoring-images/prom5.png)
+![monitor](./monitoring-images/prom6.png)
+![monitor](./monitoring-images/prom7.png)
+![monitor](./monitoring-images/graf1.png)
+![monitor](./monitoring-images/graf2.png)
+![monitor](./monitoring-images/graf3.png)
+![monitor](./monitoring-images/graf4.png)
+![monitor](./monitoring-images/graf5.png)
+![monitor](./monitoring-images/graf6.png)
+![monitor](./monitoring-images/graf7.png)
 
 
-argocd (https://argo-cd.readthedocs.io/en/stable/getting_started/)
-cert manager (https://github.com/cert-manager/cert-manager/releases/tag/v1.14.4)
 
-ingress controller(https://kubernetes.github.io/ingress-nginx/deploy/#quick-start)
 
-load balancer controller json policy gotten from(https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/docs/install/iam_policy.json)
+
+
+
