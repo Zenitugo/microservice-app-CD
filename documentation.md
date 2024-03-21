@@ -99,6 +99,21 @@ On the grafana dashboard
 
 
 
+## DEPLOYING ELASTICSEARCH, LOGSTASH AND KIBANA (ELK) ON EKS WITH ARGOCD
+Elasticsearch is a distributed, RESTful search and analytics engine built on top of Apache Lucene. It is designed to handle large volumes of data and perform real-time searching, analysis, and visualization of that data. Originally developed by Elastic, the company, it is now part of the Elastic Stack, which also includes Logstash (for data collection and parsing) and Kibana (for data visualization and exploration).
+
+The same process used to deploy sock-shop and monitorin application was used to deploy logging applications.
+
+## PROOF OF DEPLOYMENT
+![logs](./monitoring-images/logs1.png)
+![logs](./monitoring-images/logs2.png)
+![logs](./monitoring-images/logs3.png)
+![logs](./monitoring-images/logs4.png)
+![logs](./monitoring-images/logs5.png)
+![logs](./monitoring-images/logs6.png)
+![logs](./monitoring-images/logs7.png)
+![logs](./monitoring-images/elastic1.png)
+![logs](./monitoring-images/metrics1.png)
 
 
 
