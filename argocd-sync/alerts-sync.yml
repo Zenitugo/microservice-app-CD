@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/Zenitugo/microservice-app-CD
     targetRevision: HEAD
-    path: ./manifest/alerts
+    path: ./manifest/alerts      #Path to alert yml files
   destination: 
     server: https://kubernetes.default.svc
     namespace: alerts
