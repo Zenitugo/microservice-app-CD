@@ -1,4 +1,4 @@
-# ARCHITECTURAAL DIAGRAM
+# ARCHITECTURAL DIAGRAM
 ![design](./aws-images/Blank%20diagram%20-%20Page%201.png)
 
 # GITHUB ACTIONS
