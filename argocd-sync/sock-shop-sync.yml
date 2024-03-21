@@ -5,7 +5,7 @@ metadata:
   name: sockshop-web-application
   namespace: argocd
   annotations:
-    notifications.argoproj.io/subscribe.on-deployed.slack: cd-alerts  #cd-alerts is the channel name
+    notifications.argoproj.io/subscribe.on-deployed.slack: cd-alerts  #cd-alerts is the slack channel name
     notifications.argoproj.io/subscribe.on-created.slack: cd-alerts
     notifications.argoproj.io/subscribe.on-sync-failed.slack: cd-alerts
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: cd-alerts
