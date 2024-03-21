@@ -1,4 +1,4 @@
-name: Workflow to create EKS and install ArgoCD
+name: Workflow to create EKS, install ArgoCD, ingress-nginx controller and cert manager
 
 on:
   workflow_dispatch:
