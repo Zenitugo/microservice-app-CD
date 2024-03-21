@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/Zenitugo/microservice-app-CD
     targetRevision: HEAD
-    path: ./manifest/logging
+    path: ./manifest/logging                 #Path to logging yml files
   destination: 
     server: https://kubernetes.default.svc
     namespace: kube-system
